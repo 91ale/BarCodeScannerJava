@@ -72,38 +72,26 @@ public class DBConn {
         return product;
     }
 
-    public void updateProduct(Product product/*, int existBC*/) throws SQLException {
+    public void updateProduct(Product product) throws SQLException {
 
         PreparedStatement pstatement;
 
-        //if (existBC == 1) {
-            pstatement = connection.prepareStatement("INSERT INTO prodotti(id, codice_a_barre, nome, prezzo_acquisto, prezzo_vendita, marca)"
-                    + " VALUES (?, ?, ?, ?, ?, ?) "
-                    + "ON DUPLICATE KEY UPDATE "
-                    + "id=VALUES(id), "
-                    + "codice_a_barre=VALUES(codice_a_barre), "
-                    + "nome=VALUES(nome), "
-                    + "prezzo_acquisto=VALUES(prezzo_acquisto), "
-                    + "prezzo_vendita=VALUES(prezzo_vendita), "
-                    + "marca=VALUES(marca)");
+        pstatement = connection.prepareStatement("INSERT INTO prodotti(id, codice_a_barre, nome, prezzo_acquisto, prezzo_vendita, marca)"
+                + " VALUES (?, ?, ?, ?, ?, ?) "
+                + "ON DUPLICATE KEY UPDATE "
+                + "id=VALUES(id), "
+                + "codice_a_barre=VALUES(codice_a_barre), "
+                + "nome=VALUES(nome), "
+                + "prezzo_acquisto=VALUES(prezzo_acquisto), "
+                + "prezzo_vendita=VALUES(prezzo_vendita), "
+                + "marca=VALUES(marca)");
 
-            pstatement.setInt(1, product.getid());
-            pstatement.setString(2, product.getbc());
-            pstatement.setString(3, product.getnome());
-            pstatement.setBigDecimal(4, new BigDecimal(product.getprezzoa().replace(',', '.')));
-            pstatement.setBigDecimal(5, new BigDecimal(product.getprezzov().replace(',', '.')));
-            pstatement.setString(6, product.getmarca());
-
-        /*} else {
-            pstatement = connection.prepareStatement("INSERT INTO prodotti(codice_a_barre, nome, prezzo_acquisto, prezzo_vendita, marca) VALUES (?, ?, ?, ?, ?)");
-
-            pstatement.setString(1, product.getbc());
-            pstatement.setString(2, product.getnome());
-            pstatement.setBigDecimal(3, new BigDecimal(product.getprezzoa().replace(',', '.')));
-            pstatement.setBigDecimal(4, new BigDecimal(product.getprezzov().replace(',', '.')));
-            pstatement.setString(5, product.getmarca());
-
-        }*/
+        pstatement.setInt(1, product.getid());
+        pstatement.setString(2, product.getbc());
+        pstatement.setString(3, product.getnome());
+        pstatement.setBigDecimal(4, new BigDecimal(product.getprezzoa().replace(',', '.')));
+        pstatement.setBigDecimal(5, new BigDecimal(product.getprezzov().replace(',', '.')));
+        pstatement.setString(6, product.getmarca());
 
         pstatement.executeUpdate();
 
